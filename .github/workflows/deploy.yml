@@ -15,19 +15,17 @@ jobs:
     - name: Build Docker image
       run: |
         cd app-ejemplo
-        docker build -t ghcr.io/luissvalencia/app-ejemplo:${{ github.sha }} .
-        docker tag ghcr.io/luissvalencia/app-ejemplo:${{ github.sha }} ghcr.io/luissvalencia/app-ejemplo:latest
+        docker build -t ghcr.io/luissvalencia/my-app-ejemplo:${{ github.sha }} .
 
     - name: Login to GHCR
       run: |
-        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u luissvalencia --password-stdin
 
     - name: Push to GHCR
       run: |
-        docker push ghcr.io/luissvalencia/app-ejemplo:${{ github.sha }}
-        docker push ghcr.io/luissvalencia/app-ejemplo:latest
+        docker push ghcr.io/luissvalencia/my-app-ejemplo:${{ github.sha }}
 
     - name: Show success
       run: |
         echo "✅ CI/CD Pipeline completed successfully!"
-        echo "Image pushed to: ghcr.io/luissvalencia/app-ejemplo:${{ github.sha }}"
+        echo "Image pushed to: ghcr.io/luissvalencia/my-app-ejemplo:${{ github.sha }}"
