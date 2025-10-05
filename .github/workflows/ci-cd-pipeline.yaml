@@ -37,3 +37,4 @@ jobs:
         az aks get-credentials --resource-group rg-aks-cluster --name aks-cluster --overwrite-existing
         kubectl set image deployment/app-ejemplo app-ejemplo=ghcr.io/${{ github.repository }}/app-ejemplo:${{ github.sha }} --record
         kubectl rollout status deployment/app-ejemplo
+
