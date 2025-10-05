@@ -1,0 +1,33 @@
+name: Deploy to AKS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: |
+        cd app-ejemplo
+        docker build -t ghcr.io/${{ github.repository }}/app-ejemplo:${{ github.sha }} .
+        docker tag ghcr.io/${{ github.repository }}/app-ejemplo:${{ github.sha }} ghcr.io/${{ github.repository }}/app-ejemplo:latest
+
+    - name: Login to GHCR
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Push to GHCR
+      run: |
+        docker push ghcr.io/${{ github.repository }}/app-ejemplo:${{ github.sha }}
+        docker push ghcr.io/${{ github.repository }}/app-ejemplo:latest
+
+    - name: Show success
+      run: |
+        echo "✅ CI/CD Pipeline completed successfully!"
+        echo "Image: ghcr.io/${{ github.repository }}/app-ejemplo:${{ github.sha }}"
