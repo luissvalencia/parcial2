@@ -1,0 +1,12 @@
+{
+  "name": "app-ejemplo",
+  "version": "1.0.0",
+  "description": "Aplicación de ejemplo para CI/CD",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
