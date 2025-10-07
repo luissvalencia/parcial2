@@ -1,0 +1,21 @@
+name: Test CI/CD Básico
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v3
+
+    - name: Mostrar mensaje de éxito
+      run: |
+        echo "✅ ¡Pipeline funcionando correctamente!"
+        echo "📁 Archivos en el repo:"
+        ls -la
+        echo "🚀 Aplicación lista para deploy"
+
