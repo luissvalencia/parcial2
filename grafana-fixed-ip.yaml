@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-public
+  namespace: monitoring
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: MC_rg-aks-cluster_aks-cluster_northcentralus
+spec:
+  type: LoadBalancer
+  loadBalancerIP: "172.183.189.253"  # ← Usamos esta IP existente
+  selector:
+    app.kubernetes.io/name: grafana
+  ports:
+  - port: 80
+    targetPort: 3000
+    protocol: TCP
